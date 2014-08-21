@@ -19,37 +19,39 @@ Syntax
     background: #FFFFFF;
   }
 
-  padding: 20px;
+  padding: 0px;
 }
 
 // good
 .class-name {
-  padding: 20px;
+  padding: 0;
 
   .class-name-details { background: #fff; }
 }
 ```
 
-Structure
+Nested structure
 ---
-Nest SCSS in this order, with spaces between new class declarations:
-
 ```scss
-.parent-class {
-  position: relative;
+.selector { // <- selector
+  position: relative; // <- selector properties
 
-  &:before { ... }
+  &:before { ... } // <- selector pseudo-elements
 
-  &.sibling-class { ... }
+  &:last-child { ... } // <- selector pseudo-classes
 
-  .child-class { ... }
+  &.sibling-class { ... } // <- selector siblings
+
+  & > .child-class { ... } // <- selector children
+
+  .descendant-class { ... } // <- selector descendants
 }
 ```
 
 
 Nesting
 ---
-When possible, do not nest selectors more than one level deep. Occasionally, specificity will require further nesting (common with elements such as <ul> and <li>).
+When possible, do not nest selectors more than one level deep. Occasionally, specificity will require further nesting (common with elements such as `<ul>` and `<li>`).
 
 
 Variables
@@ -82,7 +84,7 @@ Keep your global functions in _functions.scss and include toward the top of your
 
 @extend
 ---
-Don’t use SCSS’s `@extend`. It doesn’t work with media queries and the way it combines classes can be unintuitive. Use mixins instead.
+Avoid using `@extend`. It doesn’t work with media queries and the way it extends selectors can be unintuitive. Use mixins instead.
 
 
 Media queries
@@ -93,7 +95,6 @@ Group media queries at the bottom of each appropriate _.scss partial. Write SCSS
 .button {
   display: inline-block;
   width: 100%;
-  [ ... ]
 }
 
 @media "only screen and (min-width: 768px)" {
@@ -104,15 +105,25 @@ Group media queries at the bottom of each appropriate _.scss partial. Write SCSS
 
 Selectors
 ---
+- Avoid abbreviations
+
 
 ```scss
 // bad
 .btn { ... }
-.blog .blog-article { ... }
+
+.blog span { ... }
+
+.className { ... }
+
+.u-floatleft { ... }
 
 // good
 .button { ... }
-.blog article { ... }
+
+.blog .label { ... }
+
+.class-name { ... }
 ```
 
 
@@ -131,7 +142,7 @@ $('[data-toggle="dropdown"]').on('click', function(ev) {});
 
 Text editor settings
 ---
-Set encoding to UTF-8.
-Use two spaces for indentation (soft tabs).
-Remove all trailing whitespace.
-Add a newline at the end of each file.
+- Set encoding to UTF-8.
+- Use two spaces for indentation (soft tabs).
+- Remove all trailing whitespace.
+- Add a newline at the end of each file.
