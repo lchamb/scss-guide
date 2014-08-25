@@ -5,13 +5,14 @@ A style guide for SCSS
 
 General syntax
 ---
+- Avoid styling ids
 - Don’t use units for zero values e.g. use `margin: 0;` instead of `margin: 0px;`.
 - Use lowercase letters for hex colors and use three digit codes if possible e.g. `#fff` instead of `#FFFFFF`.
 - Use spaces after `:` in property declarations.
 - Use `//` for comment blocks instead of `/* */`.
 - Avoid use of `!important` whenever possible.
 - Don’t use `div` as a selector.
-- Use `font-weight: 700` if you are loading webfonts with specific weights, otherwise use `font-weight: bold`.
+- Use specific weights such as `font-weight: 700` if you are loading webfonts with specific weights, otherwise use general declarations such as `font-weight: normal` and `font-weight: bold`.
 
 ```scss
 // bad
@@ -85,9 +86,9 @@ Nesting order
 
   @include box-shadow();    // <- SCSS mixins
 
-  &:before { ... }          // <- selector pseudo-elements
+  &:hover { ... }           // <- selector pseudo-classes
 
-  &:last-child { ... }      // <- selector pseudo-classes
+  &:before { ... }          // <- selector pseudo-elements
 
   &.sibling-class { ... }   // <- selector siblings
 
@@ -98,7 +99,7 @@ Nesting order
 ```
 
 
-Nesting
+Nesting depth
 ---
 When possible, do not nest selectors more than one level deep. Occasionally, specificity will require further nesting (common with elements such as `<ul>` and `<li>`).
 
@@ -152,27 +153,36 @@ Group media queries at the bottom of each appropriate _.scss partial. Write SCSS
 ```
 
 
-Selectors
+Class names
 ---
+- Describe the content or function, not the style
 - Avoid abbreviations
+- Use lowercase letters
+- Use hyphens to separate words in class names e.g. `.class-name`
 
 
 ```scss
 // bad
 .btn { ... }
 
-.blog span { ... }
-
 .className { ... }
 
 .u-floatleft { ... }
 
+.red-button { ... }
+
+.grid-3 { ... }
+
 // good
 .button { ... }
 
-.blog .label { ... }
-
 .class-name { ... }
+
+.blog-article { float: left; }
+
+.button.cancel-button { background-color: red; }
+
+.user-settings { @include grid-mixin($columns: 3); }
 ```
 
 
