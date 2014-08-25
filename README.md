@@ -3,20 +3,25 @@ SCSS Style Guide
 
 A style guide for SCSS
 
-Syntax
+General syntax
 ---
-- Don’t use units for zero values e.g. `margin: 0;` instead of `margin: 0px;`.
+- Don’t use units for zero values e.g. use `margin: 0;` instead of `margin: 0px;`.
 - Use lowercase letters for hex colors and use three digit codes if possible e.g. `#fff` instead of `#FFFFFF`.
 - Use spaces after `:` in property declarations.
 - Use `//` for comment blocks instead of `/* */`.
 - Avoid use of `!important` whenever possible.
 - Don’t use `div` as a selector.
+- Use `font-weight: 700` if you are loading webfonts with specific weights, otherwise use `font-weight: bold`.
 
 ```scss
 // bad
 .class-name {
   .class-name-details {
     background: #FFFFFF;
+  }
+
+  div {
+    color: red;
   }
 
   padding: 0px;
@@ -30,19 +35,63 @@ Syntax
 }
 ```
 
-Nested structure
+Property order
 ---
 ```scss
-.selector { // <- selector
-  position: relative; // <- selector properties
+.class-name {
+  // box model behavior
+  display: inline-block;
+  float: left;
+  overflow: hidden;
 
-  &:before { ... } // <- selector pseudo-elements
+  // position
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-  &:last-child { ... } // <- selector pseudo-classes
+  // size
+  width: 100px;
+  height: 100px;
 
-  &.sibling-class { ... } // <- selector siblings
+  // margin and padding
+  margin: 0;
+  padding: 0;
 
-  & > .child-class { ... } // <- selector children
+  // appearance
+  background: #fff url('stripes.png') no-repeat;
+  border: 1px solid $border-color;
+
+  // text
+  color: #333;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  vertical-align: middle;
+
+  // other stuff
+  cursor: move;
+  opacity: 0.5;
+  z-index: 9001;
+}
+```
+
+Nesting order
+---
+```scss
+.selector {                 // <- selector
+  position: relative;       // <- selector properties
+
+  @include box-shadow();    // <- SCSS mixins
+
+  &:before { ... }          // <- selector pseudo-elements
+
+  &:last-child { ... }      // <- selector pseudo-classes
+
+  &.sibling-class { ... }   // <- selector siblings
+
+  & > .child-class { ... }  // <- selector children
 
   .descendant-class { ... } // <- selector descendants
 }
